@@ -1,0 +1,18 @@
+# Multi-Container Pods
+- keeping in mind the idea of microservices
+    - develop nad deploy code independently
+    - keep things clean
+- may be cases when you need to deploy two things together and keep them aligned
+    - e.g. a web server and a logging agent
+    - don't wnat to bloat the web server code by including a logging agent in its codebase
+    - would still like them to be developed/maintained seperately
+    - good use case for multi-container pods
+        - have access to the same network space
+        - have access to the same volumes
+- to create a multi-container pod, add the second container to the `spec.containers[]` list
+- Design patterns:
+    - sidecar: a helper container simply deployed alongside the main container, meant to do a thing
+    - adapter: a helper that runs adapter functionality, like converting logs to a common format
+    - ambassador: a proxy to connect to external resources
+        - e.g. a DB connection is always referred to in the main container as "localhost"
+        - by consequence, the ambassador container handles the connection abstraction to whichever env target DB is appropriate
